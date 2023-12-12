@@ -6,7 +6,9 @@
 
     {% for stagiaire in stagiaires %}
         <h2>{{ stagiaire.lastname }} {{ stagiaire.firstname }}</h2>
-        <a href="">Voir les infos complètes</a>
+        <a href="/stagiaire/{{ stagiaire.id}}">Voir les infos complètes</a>
+        <a href="/stagiaire/{{ stagiaire.id}}/delete">Effacer</a>
+        <a href="/stagiaire/{{ stagiaire.id}}/update">Modifier</a>
     {% endfor %}
 
 {% endblock %}
