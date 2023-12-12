@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+    {% for stagiaire in stagiaires %}
+        <h2>{{ stagiaire.lastname }} {{ stagiaire.firstname }}</h2>
+        <a href="">Voir les infos complètes</a>
+    {% endfor %}
+
+{% endblock %}

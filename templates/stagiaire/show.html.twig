@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello StagiaireController!{% endblock %}
+
+{% block body %}
+    <h1>{{ stagiaire.lastname }} {{ stagiaire.firstname }}</h1>
+    <span>{{ stagiaire.birthdate|date('d-m-Y') }}</span>
+    <p>{{ stagiaire.address}}</p>
+{% endblock %}
