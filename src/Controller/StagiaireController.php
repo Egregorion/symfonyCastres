@@ -45,10 +45,18 @@ class StagiaireController extends AbstractController
             //enfin on redirige vers la page d'accueil
             return $this->redirectToRoute('app_home'); 
         }
-
-        return $this->render('stagiaire/add.html.twig', [
-            'form' => $form
-        ]);
+        //Je check si j'ai un utilisateur connecté
+        $user = $this->getUser();
+        //Si j'en ai un je rend le formulaire 
+        if($user){
+            return $this->render('stagiaire/add.html.twig', [
+                'form' => $form
+            ]);
+        //dans le cas contraire je redirige vers le login
+        }else{
+            return $this->redirectToRoute('app_login');
+        }
+        
     }
 
     #[Route('/stagiaire/{id}/update', name: 'app_update_stagiaire')]
