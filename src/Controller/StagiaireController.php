@@ -52,12 +52,25 @@ class StagiaireController extends AbstractController
     }
 
     #[Route('/stagiaire/{id}/update', name: 'app_update_stagiaire')]
-    public function update(StagiaireRepository $sr, $id)
+    public function update(EntityManagerInterface $em, Request $request, StagiaireRepository $sr, $id)
     {
         //récupérer l'élément à mettre à jour
         $stagiaire = $sr->find($id);
         //on initialise le formulaire correspondant à l'entité 
         $form = $this->createForm(StagiaireType::class, $stagiaire);
+
+        $form->handleRequest($request);
+        //Si des données valides sont envoyées 
+        if($form->isSubmitted()&&$form->isValid()){
+            //on alimente l'objet avec les données du formulaire
+            $stagiaire = $form->getData();
+            //on va chercher l'entity manager (injecté dans la fonction) et on "enregistre" le nouvel objet
+            $em->persist($stagiaire);
+            //puis on l'envoi en base de données
+            $em->flush();
+            //enfin on redirige vers la page d'accueil
+            return $this->redirectToRoute('app_home'); 
+        }
 
         return $this->render('stagiaire/update.html.twig', [
             'form' => $form
